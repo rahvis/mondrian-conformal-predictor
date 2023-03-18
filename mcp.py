@@ -1,6 +1,3 @@
-# Using Mondrian Cross-Conformal Prediction to Predict Properties of Large Unbalanced Bioactivity Datasets
-# Jiangming Sun, Lars Carlsson, Ernst Ahlberg, Ulf Norinder, Ola Engkvist and Hongming Chen, http://biorxiv.org/content/early/2017/03/16/116764
-
 import os
 import numpy as np
 import numpy.ma as ma
