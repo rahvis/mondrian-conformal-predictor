@@ -1,6 +1,6 @@
 # mondrian-conformal-predictor
 Prereq: 
-pip install scikit-learn==0.17 
+pip install scikit-learn==0.17. <br>
 % python -V                
 Python 2.7.15
 
