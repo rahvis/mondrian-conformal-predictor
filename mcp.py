@@ -111,7 +111,7 @@ def plotCVAccuracyGrid(grid_scores,C_vals,gamma_Vals,outputdir):
 	plt.xticks(np.arange(len_gamma), gV, rotation=45)
 	plt.yticks(np.arange(len(C_vals)), cV)
 	plt.title('Validation accuracy')
-	plt.savefig(outputdir+'/CVaccuracy.eps',format='eps')
+	plt.savefig('output/CVaccuracy.eps',format='eps')
 	# plt.show()
 
 def roundFormatter(x,pos):
@@ -135,7 +135,7 @@ def plotCVAccuracyLine(grid_scores,C_vals):
 	plt.yticks(np.arange(len(scores)), scores)
 	plt.xticks(np.arange(len(C_vals)), C_vals)
 	plt.title('Validation accuracy')
-	plt.savefig(outputdir+'/CVaccuracy.eps',format='eps')
+	plt.savefig('output/CVaccuracy.eps',format='eps')
 #	plt.show()
 
 def plotCalibration(p_0,p_1,y_t):
@@ -185,7 +185,7 @@ def main(argv):
 	# from sklearn.datasets import load_svmlight_file
 	inputfile = '' # traing set
 	testfile = '' # test set
-	outputdir = '' # output directory
+	outputdir = '/Users/rahulvishwakarma/Documents/GitHub/mondrian-conformal-predictor/output' # output directory
 	
 	try:
 		opts, args = getopt.getopt(argv,"hi:t:o:",["ifile=","testfile=","outputdir="])
