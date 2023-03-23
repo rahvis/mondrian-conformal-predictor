@@ -1,5 +1,11 @@
 # mondrian-conformal-predictor
-How to run?  
+Prereq: 
+pip install scikit-learn==0.17 
+% python -V                
+Python 2.7.15
+
+
+#How to run?  
 python mcp/mcp.py -i a1 -t a2 -o output. <br>
 
 "-i" input train file; "-t" test file; "-o" output directory. 
