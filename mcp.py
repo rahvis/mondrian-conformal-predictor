@@ -138,7 +138,7 @@ def plotCVAccuracyLine(grid_scores,C_vals):
 	plt.savefig(outputdir+'/CVaccuracy.eps',format='eps')
 #	plt.show()
 
-def plotCalibration(p_0,p_1,y_t,filename):
+def plotCalibration(p_0,p_1,y_t):
 	n = 100
 	eps = 1.0*(np.arange(n)+1)/n
 	error_rate = np.zeros(n)
@@ -157,7 +157,7 @@ def plotCalibration(p_0,p_1,y_t,filename):
 	plt.ylabel("observed error")
 	plt.title("Calibration plot")
 	plt.plot([0, 1], [0, 1], 'k-')
-	plt.savefig(filename,format='eps')
+	plt.savefig('output/Calibration.eps',format='eps')
 #	plt.show()
 	return LA.norm(eps-error_rate,ord=None)
 
@@ -266,7 +266,7 @@ def main(argv):
 	fheader="Y_test_label\tMCCP_pred_label\tp_0_CCP\tp_1_CCP\tSvm_pred_label\tSvm_Prob_0\tSvm_Prob_1"
 	np.savetxt(outputdir+'/mccp_svm_pred_rst.txt',ccp_svm_rst,fmt='%0.3f', delimiter='\t',header=fheader)
 
-	plotCalibration(p_0_CCP, p_1_CCP, y_test,outputdir+'/ccpcalibration.eps')
+	plotCalibration(p_0_CCP, p_1_CCP, y_test)
 
 	# Total execution time
 	print("Total execution time:")

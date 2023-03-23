@@ -78,4 +78,4 @@ CCP validity:
 .
 .
 Total execution time:
-0.624396085739
+0.605504989624
