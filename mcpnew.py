@@ -84,7 +84,7 @@ def predictCCP(alpha_clf,X_train,y_train,X_test,outputdir):
 		count = count + 1
 	return np.mean(p_zeros, axis=0), np.mean(p_ones, axis=0),totalTrainTime,totalPredictTime
 	#return np.median(p_zeros, axis=0), np.median(p_ones, axis=0),totalTrainTime,totalPredictTime
-
+'''
 def plotCVAccuracyGrid(grid_scores,C_vals,gamma_Vals,outputdir):
 	# plot the scores of the grid
 	# grid_scores_ contains parameter settings and scores
@@ -113,6 +113,30 @@ def plotCVAccuracyGrid(grid_scores,C_vals,gamma_Vals,outputdir):
 	plt.title('Validation accuracy')
 	plt.savefig('output/CVaccuracy.eps',format='eps')
 	# plt.show()
+'''
+def plotCVAccuracyGrid(grid_scores,C_vals,gamma_Vals,outputdir):
+    # plot the scores of the grid
+    # grid_scores_ contains parameter settings and scores
+    # We extract just the scores
+    len_gamma = len(gamma_Vals)
+    len_c = len(C_vals)
+    scores = [x[1] for x in grid_scores]
+    scores = np.array(scores).reshape(len_c, len_gamma)
+    gV = []
+    for i in range(len_gamma):
+        gV.append(str(gamma_Vals[i]))
+    plt.figure(figsize=(8, 6))
+    plt.subplots_adjust(left=.2, right=0.95, bottom=0.15, top=0.95)
+    plt.imshow(scores, interpolation='nearest', cmap=plt.cm.hot,
+               norm=MidpointNormalize(vmin=0.2, midpoint=0.92))
+    plt.xlabel('gamma')
+    plt.ylabel('C')
+    plt.colorbar()
+    plt.xticks(np.arange(len_gamma), gV, rotation=45)
+    plt.yticks(np.arange(len_c), C_vals)
+    plt.title('Validation accuracy')
+    plt.savefig(os.path.join(outputdir, 'accuracy1.png'))
+
 
 def roundFormatter(x,pos):
 	return '%.2f' % x
