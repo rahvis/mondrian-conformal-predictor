@@ -12,7 +12,7 @@ python mcp/mcp.py -i a1 -t a2 -o output. <br>
 
 a1 and a2 are the dataset (split in train and test; a1 - train; a2 - test)
 
-File format is libsvm format example. 
+File format is libsvm format example. </br>
 https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/. </br>
 https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_svmlight_file.html. 
 
