@@ -298,3 +298,83 @@ def main(argv):
 
 if __name__ == "__main__":
    main(sys.argv[1:])
+
+
+'''
+# input csv file
+import getopt
+import os
+import sys
+import time
+import numpy as np
+from sklearn.datasets import load_svmlight_file
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+from sklearn.metrics import cohen_kappa_score, make_scorer
+import pandas as pd
+
+def main(argv):
+    # Overall timing
+    t0 = time.time()
+    # Let's read in a classification dataset in CSV format.
+    inputfile = ''  # training set
+    testfile = ''  # test set
+    outputdir = '/Users/rahulvishwakarma/Documents/GitHub/mondrian-conformal-predictor/output'  # output directory
+
+    try:
+        opts, args = getopt.getopt(argv, "hi:t:o:", ["ifile=", "testfile=", "outputdir="])
+    except getopt.GetoptError:
+        print("mccp_openmp_sklearn.py -i <ifile> -t <testfile> -o <outputdir>")
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print("mccp_openmp_sklearn.py -i <ifile> -t <testfile> -o <outputdir>")
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            inputfile = arg
+        elif opt in ("-t", "--testfile"):
+            testfile = arg
+        elif opt in ("-o", "--outputdir"):
+            outputdir = arg
+    print(inputfile)
+    print(testfile)
+    print(outputdir)
+    # create output dir
+    if not os.path.exists(outputdir):
+        os.makedirs(outputdir)
+
+    df_train = pd.read_csv(inputfile)
+    X_train = df_train.drop(columns=['target'])
+    y_train = df_train['target']
+
+    # Do a grid search based on cross validation to find optimum.
+    linear = True  # Assuming linear kernel
+
+    if linear:
+        C_vals = np.logspace(-2.0, 1.0, 10)
+        tuned_parameters = [{'kernel': ['linear'], 'C': C_vals}]
+    else:
+        C_vals = np.logspace(0.0, 10, num=6, base=2)
+        gamma_vals = np.logspace(-1.0, -5.0, 10)
+        tuned_parameters = [{'kernel': ['rbf'], 'gamma': gamma_vals, 'C': C_vals}]
+    score = 'cohen_kappa_score'
+    kappa_scorer = make_scorer(cohen_kappa_score)
+
+    print("# Tuning hyper-parameters for %s" % score)
+    print()
+    if linear:
+        clf = GridSearchCV(SVC(C=1, cache_size=6400), tuned_parameters, cv=5, scoring=kappa_scorer, n_jobs=1)
+    else:
+        clf = GridSearchCV(SVC(C=1, cache_size=6400, class_weight='balanced'), tuned_parameters, cv=5,
+                           scoring=kappa_scorer, n_jobs=1)
+    clf.fit(X_train, y_train)
+    print("Best parameters set found on training set:")
+    print()
+    print(clf.best_params_)
+    print()
+    print("Grid scores on training set:")
+    print()
+    for params, mean_score, scores in clf.cv_results_:
+        print("%0.3f (+/-%0.03f) for %r" % (mean_score, scores.std() * 2, params))
+    print
+'''
